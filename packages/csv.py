@@ -5,11 +5,21 @@ from datetime import datetime
 
 
 class Csv:
+
     def __init__(self, data):
         self.data = data
         self.date = str(str(datetime.now()).replace(" ", "_").replace(":", "-").split(".")[0])
 
     def csv_write(self):
+        """Ecriture dans un fichier .csv.
+
+        Args:
+            dict: Dictionnaire des carractéristiques produits.
+
+        :return:
+            fichier csv: Un fichier .csv par catégorie contenant toutes les infos
+                         de tout les produits d'un même catégorie.
+        """
         csv_columns = ["product_page_url",
                        "universal_product_code",
                        "title",

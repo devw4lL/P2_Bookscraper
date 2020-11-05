@@ -5,7 +5,6 @@ from packages.images import Images
 
 url = "http://books.toscrape.com/"
 
-
 if __name__ == "__main__":
     buff = [] #Buufer pour les infos produits de chaque catégorie
     P = HtmlParser(url)

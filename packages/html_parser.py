@@ -18,6 +18,15 @@ class HtmlParser:
         self.image_url = ""
 
     def get_response(self):
+        """Fait une requete GET sur une URL, vérifie ca validité et
+         stock son code html dans un variable.
+
+         Args:
+            self.product_page_url (str): URL a analyser.
+
+        :return:
+            requests.models.response(obj): Contient le code HTML de l'URL dans un objet requests.
+        """
         try:
             self.response = requests.get(self.product_page_url)
             if self.response.ok:
@@ -27,9 +36,13 @@ class HtmlParser:
             return False
 
     def get_all_category(self):
-        """
-        return list de 'urls pour chaque catégorie
+        """Extraire les URLs de chaque catégorie.
+
+            Args:
+                requests.models.response(obj): Contient le code HTML de l'URL dans un objet requests.
+
         :return:
+            list: List d'URLs de chaque catégorie.
         """
         all_categorys_urls = []
 
@@ -45,9 +58,16 @@ class HtmlParser:
             return False
 
     def extract_products_urls(self):
+        """Extraire les URLs de chaque produits.
+
+            Args:
+                requests.models.response(obj): Contient le code HTML de l'URL dans un objet requests.
+
+        :return:
+            list: list d'URLs de chaque produit.
+        """
         all_products_urls = []
         next_ = True
-
         try:
             soup = BeautifulSoup(self.response.text, "lxml")
             while next_:
@@ -70,6 +90,14 @@ class HtmlParser:
             return False
 
     def product_parser(self):
+        """Extraire les infos d'un produit à partir de son URL.
+
+            Args:
+                requests.models.response(obj): Contient le code HTML de l'URL dans un objet requests.
+
+        :return:
+            dict: Un dictionaire des caractéristiques du produit.
+        """
         try:
             soup = BeautifulSoup(self.response.text, 'lxml')
             self.category = soup.find("ul", class_="breadcrumb").findAll("a")[2].text
