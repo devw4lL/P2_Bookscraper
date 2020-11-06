@@ -1,6 +1,6 @@
-from packages.html_parser import HtmlParser
-from packages.csv import Csv
-from packages.images import Images
+from utils.html_parser import HtmlParser
+from utils.csv import Csv
+from utils.images import Images
 
 
 url = "http://books.toscrape.com/"
