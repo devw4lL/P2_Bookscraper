@@ -23,4 +23,3 @@ if __name__ == "__main__":
                 CSV.data = buff
                 CSV.csv_write() #Ecrit le fichier CSV de la catégorie
                 buff = [] #Vide le buffer pour la prochaine catégorie
-
