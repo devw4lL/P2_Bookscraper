@@ -39,12 +39,15 @@ class Csv:
             except OSError as e:
                 print(f"ERREUR dans csv_write: {e}")
                 return False
-        else:
-            full_path = os.path.join(path, file_name + ".csv")
-            with open(full_path, "w", newline="", encoding="utf-8") as f:
-                writer = csv.DictWriter(f, fieldnames=csv_columns)
-                writer.writeheader()
-                [writer.writerow(product) for product in self.data]
+
+        full_path = os.path.join(path, file_name + ".csv")
+        with open(full_path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=csv_columns)
+            writer.writeheader()
+            [writer.writerow(product) for product in self.data]
+            print("CSV", self.data[0]['category'])
+
+
 
 
 

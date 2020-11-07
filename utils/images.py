@@ -37,12 +37,12 @@ class Images:
             except OSError as e:
                 print(f"ERREUR dans csv_write: {e}")
                 return False
-        else:
-            img = requests.get(self.url, stream=True)
-            if img.ok:
-                p = re.compile(r'[^a-zA-Z0-9 -]')
-                self.title = p.sub('_', self.title)
-                full_path = os.path.join(path, self.title + ".jpg")
-                with open(full_path, 'wb') as f:
-                    img.raw.decode_content = True
-                    copyfileobj(img.raw, f)
+
+        img = requests.get(self.url, stream=True)
+        if img.ok:
+            p = re.compile(r'[^a-zA-Z0-9 -]')
+            self.title = p.sub('_', self.title)
+            full_path = os.path.join(path, self.title + ".jpg")
+            with open(full_path, 'wb') as f:
+                img.raw.decode_content = True
+                copyfileobj(img.raw, f)

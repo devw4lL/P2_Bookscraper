@@ -69,8 +69,9 @@ class HtmlParser:
         all_products_urls = []
         next_ = True
         try:
-            soup = BeautifulSoup(self.response.text, "lxml")
             while next_:
+                self.get_response()
+                soup = BeautifulSoup(self.response.text, "lxml")
                 raw_url = soup.findAll("div", class_="image_container")
                 for url in raw_url:
                     all_products_urls.append("/".join(self.product_page_url.split('/')[:4])
@@ -78,15 +79,14 @@ class HtmlParser:
                                              + "/".join(url.find("a")['href'].split("/")[3:]))
                 next_p = soup.find("li", class_="next")
                 if next_p:
-                    next_page = self.product_page_url.replace("index.html", next_p.find("a")['href'])
+                    next_page = "/".join(self.product_page_url.split("/")[:7]) + "/" + next_p.find("a")['href']
                     self.product_page_url = next_page
-                    self.get_response()
-                    soup = BeautifulSoup(self.response.text, 'lxml')
                 else:
-                    return all_products_urls
+                    next_ = False
+            return all_products_urls
 
         except Exception as e:
-            print(f"ERREUR sur gat_all_category: {e}")
+            print(f"ERREUR sur get_all_category: {e}")
             return False
 
     def product_parser(self):
